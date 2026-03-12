@@ -1,17 +1,19 @@
 # Itsypad for iOS
 
+> **Fork note:** This is a fork of [Itsypad for iOS](https://github.com/nickustinov/itsypad-ios) with one change – iCloud sync has been replaced with a self-hosted sync server.
+
 [![Tests](https://github.com/nickustinov/itsypad-ios/actions/workflows/tests.yml/badge.svg)](https://github.com/nickustinov/itsypad-ios/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Swift 5.9](https://img.shields.io/badge/swift-5.9-orange.svg)](https://swift.org)
 [![iOS 17+](https://img.shields.io/badge/iOS-17%2B-brightgreen.svg)](https://www.apple.com/ios/)
 
-The iOS companion to [Itsypad](https://itsypad.app) – a tiny, fast scratchpad and clipboard manager. Syncs your scratch tabs and clipboard history across all your devices via iCloud.
+The iOS companion to [Itsypad](https://itsypad.app) – a tiny, fast scratchpad and clipboard manager. Syncs your scratch tabs and clipboard history across all your devices via a self-hosted sync server.
 
 ## Features
 
 - Multi-tab scratchpad with session persistence
 - Clipboard history (up to 1,000 entries) with search
-- iCloud sync with the macOS version (last-modified-wins conflict resolution)
+- Self-hosted sync server for cross-device sync with the macOS version
 - Syntax highlighting via highlight.js (26+ languages)
 - 9 colour themes with light/dark variants
 - Bullet lists, numbered lists, and checklists with auto-continuation
@@ -95,4 +97,4 @@ SwiftUI + UIKit hybrid. SwiftUI handles navigation and settings, UIKit's UITextV
 | `Editor/` | Text editor, syntax highlighting, list handling |
 | `Settings/` | Settings UI and persistence |
 | `TabGrid/` | Tab grid expose view |
-| `Clipboard/` | Clipboard history and iCloud sync |
+| `Clipboard/` | Clipboard history and sync |
