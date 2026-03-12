@@ -101,7 +101,7 @@ class TabStore: ObservableObject {
         tabs.append(tab)
         selectedTabID = tab.id
         scheduleSave()
-        CloudSyncEngine.shared.recordChanged(tab.id)
+        ServerSyncEngine.shared.recordChanged(tab.id)
     }
 
     static var welcomeContent: String {
@@ -140,8 +140,8 @@ class TabStore: ObservableObject {
         let isScratch = tabs[index].fileURL == nil
         tabs.remove(at: index)
 
-        if isScratch && SettingsStore.shared.icloudSync {
-            CloudSyncEngine.shared.recordDeleted(id)
+        if isScratch {
+            ServerSyncEngine.shared.recordDeleted(id)
         }
 
         if selectedTabID == id {
@@ -179,7 +179,7 @@ class TabStore: ObservableObject {
         }
 
         if tab.fileURL == nil {
-            CloudSyncEngine.shared.recordChanged(id)
+            ServerSyncEngine.shared.recordChanged(id)
         }
 
         scheduleSave()
@@ -207,7 +207,7 @@ class TabStore: ObservableObject {
         tabs[index].languageLocked = true
         tabs[index].lastModified = Date()
         if tabs[index].fileURL == nil {
-            CloudSyncEngine.shared.recordChanged(id)
+            ServerSyncEngine.shared.recordChanged(id)
         }
         scheduleSave()
     }

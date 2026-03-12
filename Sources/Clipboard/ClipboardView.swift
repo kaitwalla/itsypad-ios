@@ -134,7 +134,7 @@ struct ClipboardView: View {
                 }
                 Button(String(localized: "alert.save_changes.cancel", defaultValue: "Cancel"), role: .cancel) {}
             } message: {
-                if SettingsStore.shared.icloudSync {
+                if SettingsStore.shared.serverSyncEnabled {
                     Text(String(localized: "clipboard.clear_alert.message_sync", defaultValue: "This will remove all clipboard entries on all your synced devices."))
                 } else {
                     Text(String(localized: "clipboard.clear_alert.message_local", defaultValue: "This will remove all clipboard entries on this device."))

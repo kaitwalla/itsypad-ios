@@ -7,7 +7,7 @@ struct ItsypadApp: App {
     @StateObject private var settings = SettingsStore.shared
 
     init() {
-        CloudSyncEngine.shared.startIfEnabled()
+        ServerSyncEngine.shared.startIfEnabled()
     }
 
     var body: some Scene {

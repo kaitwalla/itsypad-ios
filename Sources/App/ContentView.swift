@@ -114,8 +114,8 @@ struct ContentView: View {
             tabStore.saveSession()
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            print("[ContentView] willEnterForeground – triggering fetchChanges")
-            CloudSyncEngine.shared.fetchChanges()
+            print("[ContentView] willEnterForeground – triggering sync")
+            ServerSyncEngine.shared.fetchChanges()
         }
     }
 

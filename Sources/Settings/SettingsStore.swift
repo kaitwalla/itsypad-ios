@@ -121,18 +121,32 @@ class SettingsStore: ObservableObject {
         }
     }
 
-    @Published var icloudSync: Bool = true
+    @Published var serverSyncEnabled: Bool = false
+    @Published var serverSyncURL: String = ""
+    @Published var serverSyncToken: String = ""
 
-    func setICloudSync(_ enabled: Bool) {
-        icloudSync = enabled
-        defaults.set(enabled, forKey: "icloudSync")
+    func setServerSync(_ enabled: Bool) {
+        serverSyncEnabled = enabled
+        defaults.set(enabled, forKey: "serverSyncEnabled")
         defaults.synchronize()
         if enabled {
-            CloudSyncEngine.shared.start()
+            ServerSyncEngine.shared.serverURL = serverSyncURL
+            ServerSyncEngine.shared.serverToken = serverSyncToken
+            ServerSyncEngine.shared.start()
         } else {
-            CloudSyncEngine.shared.stop()
+            ServerSyncEngine.shared.stop()
         }
         NotificationCenter.default.post(name: .settingsChanged, object: nil)
+    }
+
+    func saveServerSyncSettings(url: String, token: String) {
+        serverSyncURL = url
+        serverSyncToken = token
+        defaults.set(url, forKey: "serverSyncURL")
+        defaults.set(token, forKey: "serverSyncToken")
+        defaults.synchronize()
+        ServerSyncEngine.shared.serverURL = url
+        ServerSyncEngine.shared.serverToken = token
     }
 
     var indentString: String {
@@ -167,6 +181,8 @@ class SettingsStore: ObservableObject {
         wordWrap = defaults.object(forKey: "wordWrap") as? Bool ?? true
         showLineNumbers = defaults.object(forKey: "showLineNumbers") as? Bool ?? false
         lockRotation = defaults.object(forKey: "lockRotation") as? Bool ?? true
-        icloudSync = defaults.object(forKey: "icloudSync") as? Bool ?? true
+        serverSyncEnabled = defaults.bool(forKey: "serverSyncEnabled")
+        serverSyncURL = defaults.string(forKey: "serverSyncURL") ?? ""
+        serverSyncToken = defaults.string(forKey: "serverSyncToken") ?? ""
     }
 }

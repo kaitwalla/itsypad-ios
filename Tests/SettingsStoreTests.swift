@@ -58,8 +58,8 @@ final class SettingsStoreTests: XCTestCase {
         XCTAssertTrue(store.clickableLinks)
     }
 
-    func testDefaultIcloudSync() {
-        XCTAssertTrue(store.icloudSync)
+    func testDefaultServerSyncDisabled() {
+        XCTAssertFalse(store.serverSyncEnabled)
     }
 
     // MARK: - Setting persistence
@@ -79,9 +79,9 @@ final class SettingsStoreTests: XCTestCase {
         XCTAssertEqual(defaults.string(forKey: "syntaxTheme"), "github")
     }
 
-    func testIcloudSyncPersistsToDefaults() {
-        store.setICloudSync(true)
-        XCTAssertTrue(defaults.bool(forKey: "icloudSync"))
+    func testServerSyncPersistsToDefaults() {
+        store.setServerSync(true)
+        XCTAssertTrue(defaults.bool(forKey: "serverSyncEnabled"))
     }
 
     func testClickableLinksPersistsToDefaults() {

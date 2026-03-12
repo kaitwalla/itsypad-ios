@@ -44,18 +44,18 @@ class ClipboardStore: ObservableObject {
         }
 
         scheduleSave()
-        CloudSyncEngine.shared.recordChanged(entry.id)
+        ServerSyncEngine.shared.clipboardChanged(entry.id)
     }
 
     func deleteEntry(id: UUID) {
         entries.removeAll { $0.id == id }
-        CloudSyncEngine.shared.recordDeleted(id)
+        ServerSyncEngine.shared.clipboardDeleted(id)
         scheduleSave()
     }
 
     func clearAll() {
         for entry in entries {
-            CloudSyncEngine.shared.recordDeleted(entry.id)
+            ServerSyncEngine.shared.clipboardDeleted(entry.id)
         }
         entries.removeAll()
         scheduleSave()

@@ -16,10 +16,25 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section(String(localized: "settings.sync.title", defaultValue: "Sync")) {
-                    Toggle(String(localized: "settings.sync.icloud", defaultValue: "iCloud sync"), isOn: Binding(
-                        get: { settings.icloudSync },
-                        set: { settings.setICloudSync($0) }
+                    Toggle(String(localized: "settings.sync.server", defaultValue: "Server sync"), isOn: Binding(
+                        get: { settings.serverSyncEnabled },
+                        set: { settings.setServerSync($0) }
                     ))
+                    if settings.serverSyncEnabled {
+                        TextField(String(localized: "settings.sync.server_url", defaultValue: "Server URL"), text: Binding(
+                            get: { settings.serverSyncURL },
+                            set: { settings.saveServerSyncSettings(url: $0, token: settings.serverSyncToken) }
+                        ))
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .keyboardType(.URL)
+                        SecureField(String(localized: "settings.sync.server_token", defaultValue: "Token"), text: Binding(
+                            get: { settings.serverSyncToken },
+                            set: { settings.saveServerSyncSettings(url: settings.serverSyncURL, token: $0) }
+                        ))
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                    }
                 }
 
                 Section(String(localized: "settings.appearance.title", defaultValue: "Appearance")) {
